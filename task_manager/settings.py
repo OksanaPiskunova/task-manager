@@ -90,8 +90,12 @@ DATABASES = {
 # Django REST Framework
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAdminUser',
+        'rest_framework.permissions.AllowAny',
     ],
     'DATETIME_FORMAT': '%D-%M-%Y %H:%M:%S',
     'PAGE_SIZE': 10
