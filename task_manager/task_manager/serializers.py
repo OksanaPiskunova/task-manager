@@ -39,6 +39,22 @@ class DeveloperSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
+    def validate_managers(self, value):
+        managers = value
+        for manager in managers:
+            if manager.role != Employee.MANAGER:
+                raise serializers.ValidationError('Assigned manager is developer')
+
+        return value
+
+    def validate_developers(self, value):
+        developers = value
+        for developer in developers:
+            if developer.role != Employee.DEVELOPER:
+                raise serializers.ValidationError('Assigned developer is manager')
+
+        return value
+
     class Meta:
         model = Project
         fields = ('id', 'title', 'description', 'managers', 'developers')
