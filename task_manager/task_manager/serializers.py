@@ -34,18 +34,6 @@ class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'user', 'role', )
 
 
-class ManagerSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Employee
-        fields = ('id', 'user', )
-
-
-class DeveloperSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Employee
-        fields = ('id', 'user', )
-
-
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     def validate_managers(self, value):
         managers = value

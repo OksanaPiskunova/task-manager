@@ -19,9 +19,7 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
 class ProjectViewSet(viewsets.ModelViewSet):
     permission_classes = (IsManagerOrReadOnly,)
-    queryset = Project.objects.all()#\
-        # .filter(managers__role=Employee.MANAGER)\
-        # .filter(developers__role=Employee.DEVELOPER)
+    queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
 
