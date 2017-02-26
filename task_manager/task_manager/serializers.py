@@ -19,6 +19,14 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
         return user
 
+    def update(self, instance, validated_data):
+        instance.username = validated_data['username']
+        instance.email = validated_data['email']
+        instance.set_password(validated_data['password'])
+        instance.save()
+
+        return instance
+
 
 class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -61,6 +69,10 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class TaskSerializer(serializers.HyperlinkedModelSerializer):
+    due_date = serializers.DateTimeField(
+        format='%D-%M-%Y %H:%M:%S'
+    )
+
     class Meta:
         model = Task
         fields = ('id', 'project', 'assigned_employee', 'title', 'description', 'due_date', 'type', 'status', )
